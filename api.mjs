@@ -14,7 +14,7 @@ server.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
 
-// Endpoint para recibir configuraciones
+
 app.post('/data', async (req, res) => {
     const data = req.body;
 

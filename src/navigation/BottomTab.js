@@ -23,10 +23,11 @@ const HeartIcon = ({ color, size }) => {
         );
 };
 
-export const BottomTab = () => {
+const BottomTab = () => {
 
     return (
         <Tab.Navigator style >
+            
             <Tab.Screen 
                 name="Home" 
                 component={Home} 
@@ -75,3 +76,5 @@ export const BottomTab = () => {
         </Tab.Navigator>
     );
 }
+
+export default BottomTab;
