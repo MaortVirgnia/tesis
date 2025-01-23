@@ -47,9 +47,9 @@ const Take = () => {
                     </View>
                 </View>
                 <View style={styles.recordItem}>
-                    <Text style={styles.recordLabel}>Oxigenación en Sangre:</Text>
+                    <Text style={styles.recordLabel}>Oxigenación en Sangre: </Text>
                     <View style={styles.recordValueContainer}>
-                        <Text style={styles.recordValue}>98%</Text>
+                        <Text style={styles.recordValue}> 98%</Text>
                         <Text style={styles.recordDate}>(27/10/2024)</Text>
                     </View>
                 </View>

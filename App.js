@@ -25,7 +25,6 @@ const MainStack = () => {
                 component={Register}
                 options={{ headerShown: false }}
             />
-
         </Stack.Navigator>
     );
 }

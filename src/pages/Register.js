@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert, Modal, TouchableOpacity } from 'react-native';
-import axios from 'axios'; 
+import { View, Text, StyleSheet, Alert, Modal } from 'react-native';
+import { TextInput, Button, TouchableRipple, IconButton } from 'react-native-paper';
+import axios from 'axios';
 
 const Register = ({ navigation }) => {
     const [firstName, setFirstName] = useState('');
@@ -12,6 +13,10 @@ const Register = ({ navigation }) => {
     const [hasHeartCondition, setHasHeartCondition] = useState(false);
     const [birthDate, setBirthDate] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
+    const [conditionModalVisible, setConditionModalVisible] = useState(false);
+    const [selectedCondition, setSelectedCondition] = useState('');
+    
+    const heartConditions = ['Hipertensión', 'Arritmia', 'Infarto', 'Insuficiencia cardíaca'];
 
     const handleRegister = async () => { 
         const data = {
@@ -23,7 +28,7 @@ const Register = ({ navigation }) => {
             birthDate,
             email,
             password,
-            
+            selectedCondition,
         };
         try {
             const response = await axios.post('https://n8mtbgjq-3000.use2.devtunnels.ms/data', data);
@@ -31,51 +36,80 @@ const Register = ({ navigation }) => {
             console.log(response.data);
             navigation.replace('Login'); 
         } catch (error) {
-            Alert.alert('Error', 'Hubo un error al enviar las configuraciones');
+            Alert.alert('Error', 'Hubo un error al registrar el usuario');
             console.error(error);
         }
     };
 
+    const formatDate = (text) => {
+        const cleaned = text.replace(/\D/g, '');
+        let formatted = '';
+
+        if (cleaned.length > 0) {
+            formatted += cleaned.substring(0, 4); // Añadir el año
+        }
+        if (cleaned.length >= 5) {
+            formatted += '-' + cleaned.substring(4, 6); // Añadir el mes
+        }
+        if (cleaned.length >= 7) {
+            formatted += '-' + cleaned.substring(6, 8); // Añadir el día
+        }
+
+        setBirthDate(formatted);
+    };
+
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Registro</Text>
+            <View style={styles.header} >
+                <IconButton
+                    icon="arrow-left"
+                    onPress={() => navigation.replace('Login')} 
+                    style={styles.backButton}
+                    size={40}
+                />
+                <Text style={styles.title}>Registro</Text>
+            </View>
             <TextInput
-                style={styles.input}
-                placeholder="Nombre"
+                label="Nombre"
                 value={firstName}
                 onChangeText={setFirstName}
+                style={styles.input}
+                mode="outlined"
             />
             <TextInput
-                style={styles.input}
-                placeholder="Apellido"
+                label="Apellido"
                 value={lastName}
                 onChangeText={setLastName}
+                style={styles.input}
+                mode="outlined"
             />
             <TextInput
-                style={styles.input}
-                placeholder="Edad"
+                label="Edad"
                 keyboardType="numeric"
                 value={age}
                 onChangeText={setAge}
+                style={styles.input}
+                mode="outlined"
             />
             <TextInput
-                style={styles.input}
-                placeholder="email"
+                label="Email"
                 keyboardType="email-address"
                 value={email}
                 onChangeText={setEmail}
+                style={styles.input}
+                mode="outlined"
             />
             <TextInput
-                style={styles.input}
-                placeholder="pasword"
+                label="Contraseña"
                 secureTextEntry
                 value={password}
                 onChangeText={setPassword}
+                style={styles.input}
+                mode="outlined"
             />
-            <Text style={styles.label}>Sexo:</Text>
-            <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.dropdown}>
-                <Text>{gender === 'masculino' ? 'Masculino' : 'Femenino'}</Text>
-            </TouchableOpacity>
+            <TouchableRipple onPress={() => setModalVisible(true)} style={styles.dropdown}>
+                <Text style={styles.dropdownText}>Sexo: {gender === 'masculino' ? 'Masculino' : 'Femenino'}</Text>
+            </TouchableRipple>
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -84,27 +118,38 @@ const Register = ({ navigation }) => {
             >
                 <View style={styles.modalView}>
                     <Text style={styles.modalText}>Selecciona tu sexo:</Text>
-                    <TouchableOpacity onPress={() => { setGender('masculino'); setModalVisible(false); }}>
-                        <Text style={styles.optionText}>Masculino</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => { setGender('femenino'); setModalVisible(false); }}>
-                        <Text style={styles.optionText}>Femenino</Text>
-                    </TouchableOpacity>
-                    <Button title="Cerrar" onPress={() => setModalVisible(false)} />
+                    <TouchableRipple onPress={() => { setGender('masculino'); setModalVisible(false); }}>
+                        <Text style={styles .modalOption}>Masculino</Text>
+                    </TouchableRipple>
+                    <TouchableRipple onPress={() => { setGender('femenino'); setModalVisible(false); }}>
+                        <Text style={styles.modalOption}>Femenino</Text>
+                    </TouchableRipple>
                 </View>
             </Modal>
-            <Text style={styles.label}>¿Padece de una enfermedad cardíaca?</Text>
-            <TouchableOpacity onPress={() => setHasHeartCondition(!hasHeartCondition)} style={styles.dropdown}>
-                <Text>{hasHeartCondition ? 'Sí' : 'No'}</Text>
-            </TouchableOpacity>
-            <Text style={styles.label}>Fecha de Nacimiento:</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="YYYY-MM-DD"
-                value={birthDate}
-                onChangeText={setBirthDate}
-            />
-            <Button title="Registrar" onPress={handleRegister} />
+            <TouchableRipple onPress={() => setConditionModalVisible(true)} style={styles.dropdown}>
+                <Text style={styles.dropdownText}>Condición cardíaca: {hasHeartCondition ? selectedCondition : 'Ninguna'}</Text>
+            </TouchableRipple>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={conditionModalVisible}
+                onRequestClose={() => setConditionModalVisible(false)}
+            >
+                <View style={styles.modalView}>
+                    <Text style={styles.modalText}>Selecciona tu condición cardíaca:</Text>
+                    {heartConditions.map((condition) => (
+                        <TouchableRipple key={condition} onPress={() => { setSelectedCondition(condition); setHasHeartCondition(true); setConditionModalVisible(false); }}>
+                            <Text style={styles.modalOption}>{condition}</Text>
+                        </TouchableRipple>
+                    ))}
+                    <TouchableRipple onPress={() => { setHasHeartCondition(false); setConditionModalVisible(false); }}>
+                        <Text style={styles.modalOption}>Ninguna</Text>
+                    </TouchableRipple>
+                </View>
+            </Modal>
+            <Button mode="contained" onPress={handleRegister} style={styles.button}>
+                Registrarse
+            </Button>
         </View>
     );
 };
@@ -112,32 +157,39 @@ const Register = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        padding: 16,
+        padding: 20,
+        justifyContent: 'flex-start',
+        backgroundColor: '#fff',
+    },
+    header: {
+        marginTop: 30,
+        marginBottom: 20,
+    },
+    backButton: {
+        position: 'absolute',
+        top: 30,
+        left: -10,
+        width: 40,
+        height: 40, 
     },
     title: {
+        paddingBottom: 30,
         fontSize: 24,
-        marginBottom: 24,
+        fontWeight: 'bold',
         textAlign: 'center',
     },
     input: {
-        height: 40,
-        borderColor: 'gray',
-        borderWidth: 1,
-        marginBottom: 12,
-        paddingHorizontal: 8,
-    },
-    label: {
-        marginTop: 12,
-        marginBottom: 6,
+        marginBottom: 10,
     },
     dropdown: {
-        height: 40,
-        borderColor: 'gray',
+        padding: 10,
+        marginBottom: 10,
         borderWidth: 1,
-        justifyContent: 'center',
-        paddingHorizontal:  8,
-        marginBottom: 12,
+        borderColor: '#ccc',
+        borderRadius: 5,
+    },
+    dropdownText: {
+        fontSize: 16,
     },
     modalView: {
         margin: 20,
@@ -158,9 +210,12 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         textAlign: 'center',
     },
-    optionText: {
-        marginVertical: 10,
-        fontSize: 18,
+    modalOption: {
+        padding: 10,
+        fontSize: 16,
+    },
+    button: {
+        marginTop: 20,
     },
 });
 

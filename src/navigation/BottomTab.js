@@ -29,7 +29,7 @@ const BottomTab = () => {
         <Tab.Navigator style >
             
             <Tab.Screen 
-                name="Home" 
+                name="Inicio" 
                 component={Home} 
                 options={{
                     tabBarIcon: ({ color, size}) => (
@@ -38,7 +38,7 @@ const BottomTab = () => {
                 }} 
             />
             <Tab.Screen 
-                name="Statistics" 
+                name="Estadisticas" 
                 component={Statistics} 
                 options={{
                     tabBarIcon: ({ color, size }) => (
@@ -47,7 +47,7 @@ const BottomTab = () => {
                 }} 
             />
             <Tab.Screen 
-                name="Take" 
+                name="Medir" 
                 component={Take} 
                 options={{
                     tabBarIcon: ({ color, size }) => (
@@ -56,7 +56,7 @@ const BottomTab = () => {
                 }}
             />
             <Tab.Screen 
-                name="Settings" 
+                name="Ajustes" 
                 component={Settings} 
                 options={{
                     tabBarIcon: ({ color, size }) => (
@@ -65,7 +65,7 @@ const BottomTab = () => {
                 }} 
             />
             <Tab.Screen 
-                name="Profile" 
+                name="Perfil" 
                 component={Profile} 
                 options={{
                     tabBarIcon: ({ color, size }) => (

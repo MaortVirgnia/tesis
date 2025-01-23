@@ -3,76 +3,33 @@ import { View, Text, TextInput, Switch, Button, StyleSheet, Alert } from 'react-
 import axios from 'axios';
 
 const Settings = () => {
-    const [name, setName] = useState('');
-    const [age, setAge] = useState('');
-    const [gender, setGender] = useState('');
-    const [height, setHeight] = useState('');
-    const [weight, setWeight] = useState('');
     const [notificationsEnabled, setNotificationsEnabled] = useState(false);
     const [nightModeEnabled, setNightModeEnabled] = useState(false);
     const [estadoEnabled, setEstadoEnabled] = useState(false);
 
     const submitSettings = async () => {
         const data = {
-            name,
-            age,
-            gender,
-            height,
-            weight,
+            notificationsEnabled,
+            nightModeEnabled,
+            estadoEnabled,
         };
 
         try {
             const response = await axios.post('https://n8mtbgjq-3000.use2.devtunnels.ms/data', data);
-            Alert.alert('enviado', 'Configuraciones enviadas correctamente');
+            Alert.alert('enviado', 'ajustes enviados correctamente');
             console.log(response.data);
         } catch (error) {
-            Alert.alert('Error', 'Hubo un error al enviar las configuraciones');
+            Alert.alert('Error', 'Hubo un error al enviar los ajustes');
             console.error(error);
         }
     };
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Configuraciones</Text>
+            <Text style={styles.title}>Ajustes</Text>
 
-            <Text>Nombre:</Text>
-            <TextInput
-                style={styles.input}
-                value={name}
-                onChangeText={setName}
-            />
-
-            <Text>Edad:</Text>
-            <TextInput
-                style={styles.input}
-                value={age}
-                onChangeText={setAge}
-                keyboardType="numeric"
-            />
-
-            <Text>Sexo:</Text>
-            <TextInput
-                style={styles.input}
-                value={gender}
-                onChangeText={setGender}
-            />
-
-            <Text>Altura (cm):</Text>
-            <TextInput
-                style={styles.input}
-                value={height}
-                onChangeText={setHeight}
-                keyboardType="numeric"
-            />
-
-            <Text>Peso (kg):</Text>
-            <TextInput
-                style={styles.input}
-                value={weight}
-                onChangeText={setWeight}
-                keyboardType="numeric"
-            />
-
+            
+            <Text style={styles.tittle}>exportar datos como archivo</Text>
             <View style={styles.switchContainer}>
                 <Text>Activar Notificaciones:</Text>
                 <Switch
@@ -88,15 +45,6 @@ const Settings = () => {
                     onValueChange={setNightModeEnabled}
                 />
             </View>
-
-            <View style={styles.switchContainer}>
-                <Text>Preguntar estado:</Text>
-                <Switch
-                    value={estadoEnabled}
-                    onValueChange={setEstadoEnabled}
-                />
-            </View>
-
             <Button title="Enviar" onPress={submitSettings} />
         </View>
     );

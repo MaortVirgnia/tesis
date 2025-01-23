@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, FlatList} from 'react-native';
+import { View, Text, Button} from 'react-native';
 
 
 
@@ -7,7 +7,9 @@ function Home (props) {
 
     return (
         <View>
-            <Text>Home</Text>
+            <Text>Inicio</Text>
+            <Text>Alo buenos dias!!!!!!!!</Text>
+            <Button title="Alerta de Emergencia" color="#dc3545" onPress={() => {}} />
         </View>
         
     );
