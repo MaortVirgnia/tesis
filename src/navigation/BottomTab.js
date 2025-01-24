@@ -6,27 +6,16 @@ import Take from "../pages/Take";
 import Settings from "../pages/Settings";
 import Profile from "../pages/Profile";
 import Icon from 'react-native-vector-icons/FontAwesome'; 
-import * as Animatable from 'react-native-animatable';
 
 const Tab = createBottomTabNavigator();
-
-const HeartIcon = ({ color, size }) => {
-    
-    return (
-        <Animatable.View 
-                animation="pulse" 
-                iterationCount="infinite" 
-                duration={800} 
-                style={{ transform: [{ scale: 1.2 }] }} >
-                    <Icon name="heart" size={size} color={color} />
-        </Animatable.View>
-        );
-};
 
 const BottomTab = () => {
 
     return (
-        <Tab.Navigator style >
+        <Tab.Navigator  
+            screenOptions={{
+                tabBarStyle: { height: 60 } 
+        }}>
             
             <Tab.Screen 
                 name="Inicio" 
@@ -51,7 +40,7 @@ const BottomTab = () => {
                 component={Take} 
                 options={{
                     tabBarIcon: ({ color, size }) => (
-                        <HeartIcon name="heart" color={color} size={size} />
+                        <Icon name="heart" color={color} size={size} />
                     ),
                 }}
             />

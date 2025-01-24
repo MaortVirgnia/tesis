@@ -25,7 +25,7 @@ const Login = ({ navigation }) => {
                 style={styles.input}
                 mode="outlined"
                 autoCapitalize="none"
-                 keyboardType="email-address"
+                keyboardType="email-address"
             />
             <View style={styles.passwordContainer}>
                 <TextInput
