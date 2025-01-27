@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Alert, Modal } from 'react-native';
+import { View, Text, StyleSheet, Alert, Modal, ImageBackground } from 'react-native';
 import { TextInput, Button, TouchableRipple, IconButton } from 'react-native-paper';
 import axios from 'axios';
 
 const Register = ({ navigation }) => {
+
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [age, setAge] = useState('');
@@ -59,107 +60,113 @@ const Register = ({ navigation }) => {
     };
 
     return (
-        <View style={styles.container}>
-            <View style={styles.header} >
-                <IconButton
-                    icon="arrow-left"
-                    onPress={() => navigation.replace('Login')} 
-                    style={styles.backButton}
-                    size={40}
-                />
+        <ImageBackground style={styles.background} source={require('../img/1.jpg') }>
+            <View style={styles.container}>
+                <View style={styles.header}/>
                 <Text style={styles.title}>Registro</Text>
-            </View>
-            <TextInput
-                label="Nombre"
-                value={firstName}
-                onChangeText={setFirstName}
-                style={styles.input}
-                mode="outlined"
-            />
-            <TextInput
-                label="Apellido"
-                value={lastName}
-                onChangeText={setLastName}
-                style={styles.input}
-                mode="outlined"
-            />
-            <TextInput
-                label="Edad"
-                keyboardType="numeric"
-                value={age}
-                onChangeText={setAge}
-                style={styles.input}
-                mode="outlined"
-            />
-            <TextInput
-                label="Email"
-                keyboardType="email-address"
-                value={email}
-                onChangeText={setEmail}
-                style={styles.input}
-                mode="outlined"
-            />
-            <TextInput
-                label="Contraseña"
-                secureTextEntry
-                value={password}
-                onChangeText={setPassword}
-                style={styles.input}
-                mode="outlined"
-            />
-            <TouchableRipple onPress={() => setModalVisible(true)} style={styles.dropdown}>
-                <Text style={styles.dropdownText}>Sexo: {gender === 'masculino' ? 'Masculino' : 'Femenino'}</Text>
-            </TouchableRipple>
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => setModalVisible(false)}
-            >
-                <View style={styles.modalView}>
-                    <Text style={styles.modalText}>Selecciona tu sexo:</Text>
-                    <TouchableRipple onPress={() => { setGender('masculino'); setModalVisible(false); }}>
-                        <Text style={styles .modalOption}>Masculino</Text>
-                    </TouchableRipple>
-                    <TouchableRipple onPress={() => { setGender('femenino'); setModalVisible(false); }}>
-                        <Text style={styles.modalOption}>Femenino</Text>
-                    </TouchableRipple>
-                </View>
-            </Modal>
-            <TouchableRipple onPress={() => setConditionModalVisible(true)} style={styles.dropdown}>
-                <Text style={styles.dropdownText}>Condición cardíaca: {hasHeartCondition ? selectedCondition : 'Ninguna'}</Text>
-            </TouchableRipple>
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={conditionModalVisible}
-                onRequestClose={() => setConditionModalVisible(false)}
-            >
-                <View style={styles.modalView}>
-                    <Text style={styles.modalText}>Selecciona tu condición cardíaca:</Text>
-                    {heartConditions.map((condition) => (
-                        <TouchableRipple key={condition} onPress={() => { setSelectedCondition(condition); setHasHeartCondition(true); setConditionModalVisible(false); }}>
-                            <Text style={styles.modalOption}>{condition}</Text>
+            <IconButton
+                        icon="arrow-left"
+                        onPress={() => navigation.replace('Login')} 
+                        style={styles.backButton}
+                        size={45}
+                    />
+                <TextInput
+                    label="Nombre"
+                    value={firstName}
+                    onChangeText={setFirstName}
+                    style={styles.input}
+                    mode="outlined"
+                />
+                <TextInput
+                    label="Apellido"
+                    value={lastName}
+                    onChangeText={setLastName}
+                    style={styles.input}
+                    mode="outlined"
+                />
+                <TextInput
+                    label="Edad"
+                    keyboardType="numeric"
+                    value={age}
+                    onChangeText={setAge}
+                    style={styles.input}
+                    mode="outlined"
+                />
+                <TextInput
+                    label="Email"
+                    keyboardType="email-address"
+                    value={email}
+                    onChangeText={setEmail}
+                    style={styles.input}
+                    mode="outlined"
+                />
+                <TextInput
+                    label="Contraseña"
+                    secureTextEntry
+                    value={password}
+                    onChangeText={setPassword}
+                    style={styles.input}
+                    mode="outlined"
+                />
+                <TouchableRipple onPress={() => setModalVisible(true)} style={styles.dropdown}>
+                    <Text style={styles.dropdownText}>Sexo: {gender === 'masculino' ? 'Masculino' : 'Femenino'}</Text>
+                </TouchableRipple>
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => setModalVisible(false)}
+                >
+                    <View style={styles.modalView}>
+                        <Text style={styles.modalText}>Selecciona tu sexo:</Text>
+                        <TouchableRipple onPress={() => { setGender('masculino'); setModalVisible(false); }}>
+                            <Text style={styles .modalOption}>Masculino</Text>
                         </TouchableRipple>
-                    ))}
-                    <TouchableRipple onPress={() => { setHasHeartCondition(false); setConditionModalVisible(false); }}>
-                        <Text style={styles.modalOption}>Ninguna</Text>
-                    </TouchableRipple>
-                </View>
-            </Modal>
-            <Button mode="contained" onPress={handleRegister} style={styles.button}>
-                Registrarse
-            </Button>
-        </View>
-    );
-};
+                        <TouchableRipple onPress={() => { setGender('femenino'); setModalVisible(false); }}>
+                            <Text style={styles.modalOption}>Femenino</Text>
+                        </TouchableRipple>
+                    </View>
+                </Modal>
+                <TouchableRipple onPress={() => setConditionModalVisible(true)} style={styles.dropdown}>
+                    <Text style={styles.dropdownText}>Condición cardíaca: {hasHeartCondition ? selectedCondition : 'Ninguna'}</Text>
+                </TouchableRipple>
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={conditionModalVisible}
+                    onRequestClose={() => setConditionModalVisible(false)}
+                >
+                    <View style={styles.modalView}>
+                        <Text style={styles.modalText}>Selecciona tu condición cardíaca:</Text>
+                        {heartConditions.map((condition) => (
+                            <TouchableRipple key={condition} onPress={() => { setSelectedCondition(condition); setHasHeartCondition(true); setConditionModalVisible(false); }}>
+                                <Text style={styles.modalOption}>{condition}</Text>
+                            </TouchableRipple>
+                        ))}
+                        <TouchableRipple onPress={() => { setHasHeartCondition(false); setConditionModalVisible(false); }}>
+                            <Text style={styles.modalOption}>Ninguna</Text>
+                        </TouchableRipple>
+                    </View>
+                </Modal>
+                <Button mode="contained" onPress={handleRegister} style={styles.button}>
+                    Registrarse
+                </Button>
+            </View>
+        </ImageBackground>
+        );
+    };
 
 const styles = StyleSheet.create({
-    container: {
+    background: {
         flex: 1,
+        justifyContent: 'center',
+    },
+    container: {
+        marginHorizontal: '5%',
         padding: 20,
-        justifyContent: 'flex-start',
-        backgroundColor: '#fff',
+        backgroundColor: 'rgb(255, 255, 255)', 
+        borderRadius: 30,
+        alignContent: 'center',
     },
     header: {
         marginTop: 30,
@@ -168,7 +175,7 @@ const styles = StyleSheet.create({
     backButton: {
         position: 'absolute',
         top: 30,
-        left: -10,
+        left: 20,
         width: 40,
         height: 40, 
     },
@@ -216,6 +223,8 @@ const styles = StyleSheet.create({
     },
     button: {
         marginTop: 20,
+        borderRadius: 20,
+        backgroundColor: '#fc9294',
     },
 });
 

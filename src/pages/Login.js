@@ -48,7 +48,7 @@ const Login = ({ navigation }) => {
                 <Button mode="contained" onPress={handleLogin} style={styles.button}>
                     Iniciar Sesión
                 </Button>
-                <Button mode="outlined" onPress={handleRegister} style={styles.button}>
+                <Button mode="outlined" onPress={handleRegister} style={styles.button1}  textColor='#fc9294'>
                     Registrarse
                 </Button>
             </View>
@@ -98,7 +98,12 @@ const styles = StyleSheet.create({
         marginLeft: -46, 
     },
     button: {
+        marginBottom: 12,   
+        backgroundColor: '#fc9294',
+    },
+    button1: {
         marginBottom: 12,
+        borderColor: '#fc9294',
     },
 });
 
