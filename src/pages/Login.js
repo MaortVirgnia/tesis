@@ -1,68 +1,84 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground } from 'react-native';
 import { TextInput, Button, IconButton } from 'react-native-paper';
 
 const Login = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [showPassword, setShowPassword] = useState(false);
+    const [showPassword, setShowPassword] = useState(false); 
 
     const handleLogin = () => {        
         navigation.replace('BottomTab');
     };     
-
+    
     const handleRegister = () => {
         navigation.replace('Register');
     };
-
+    
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Iniciar Sesión</Text>
-            <TextInput
-                label="Usuario"
-                value={email}
-                onChangeText={setEmail}
-                style={styles.input}
-                mode="outlined"
-                autoCapitalize="none"
-                keyboardType="email-address"
-            />
-            <View style={styles.passwordContainer}>
+        <ImageBackground style={styles.background} source={require('../img/1.jpg') }>
+            <View style={styles.container}>
+                <Text style={styles.title}>Hola</Text>
+                <Text style={styles.subtitle}>Ingresa a tu cuenta</Text>
+
                 <TextInput
-                    label="Contraseña"
-                    value={password}
-                    onChangeText={setPassword}
-                    secureTextEntry={!showPassword}
-                    style={styles.passwordInput}
+                    label="Usuario"
+                    value={email}
+                    onChangeText={setEmail}
+                    style={styles.input}
                     mode="outlined"
+                    autoCapitalize="none"
+                    keyboardType="email-address"
                 />
-                <IconButton
-                    icon={showPassword ? "eye-off" : "eye"}
-                    onPress={() => setShowPassword(!showPassword)}
-                    style={styles.eyeIcon}
-                />
+                <View style={styles.passwordContainer}>
+                    <TextInput
+                        label="Contraseña"
+                        value={password}
+                        onChangeText={setPassword}
+                        secureTextEntry={!showPassword}
+                        style={styles.passwordInput}
+                        mode="outlined"
+                    />
+                    <IconButton
+                        icon={showPassword ? "eye-off" : "eye"}
+                        onPress={() => setShowPassword(!showPassword)}
+                        style={styles.eyeIcon}
+                    />
+                </View>
+                <Button mode="contained" onPress={handleLogin} style={styles.button}>
+                    Iniciar Sesión
+                </Button>
+                <Button mode="outlined" onPress={handleRegister} style={styles.button}>
+                    Registrarse
+                </Button>
             </View>
-            <Button mode="contained" onPress={handleLogin} style={styles.button}>
-                Iniciar Sesión
-            </Button>
-            <Button mode="outlined" onPress={handleRegister} style={styles.button}>
-                Registrarse
-            </Button>
-        </View>
+        </ImageBackground>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
+    background: {
         flex: 1,
         justifyContent: 'center',
+    },
+    container: {
+        marginHorizontal: '5%',
         padding: 20,
-        backgroundColor: '#f5f5f5',
+        backgroundColor: 'rgb(255, 255, 255)', 
+        borderRadius: 30,
+        alignContent: 'center',
     },
     title: {
         fontSize: 28,
         marginBottom: 24,
-        textAlign: 'center',
+        textAlign: 'left',
+        color: '#333',
+        fontWeight: 'bold',
+    },
+    subtitle: {
+        fontSize: 16,
+        marginBottom: 12,
+        textAlign: 'left',
         color: '#333',
         fontWeight: 'bold',
     },
@@ -72,13 +88,14 @@ const styles = StyleSheet.create({
     passwordContainer: {
         flexDirection: 'row',
         alignItems: 'center',
+        marginBottom: 12,
     },
     passwordInput: {
         flex: 1,
         marginBottom: 12,
     },
     eyeIcon: {
-        marginLeft: -40, // Ajusta este valor según sea necesario
+        marginLeft: -46, 
     },
     button: {
         marginBottom: 12,
