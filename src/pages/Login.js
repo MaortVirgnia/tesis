@@ -16,7 +16,7 @@ const Login = ({ navigation }) => {
     };
     
     return (
-        <ImageBackground style={styles.background} source={require('../img/1.jpg') }>
+        <ImageBackground style={styles.background} imageStyle={styles.image} source={require('../img/fondo.jpg') }>
             <View style={styles.container}>
                 <Text style={styles.title}>Hola</Text>
                 <Text style={styles.subtitle}>Ingresa a tu cuenta</Text>
@@ -48,7 +48,7 @@ const Login = ({ navigation }) => {
                 <Button mode="contained" onPress={handleLogin} style={styles.button}>
                     Iniciar Sesión
                 </Button>
-                <Button mode="outlined" onPress={handleRegister} style={styles.button1}  textColor='#fc9294'>
+                <Button mode="outlined" onPress={handleRegister} style={styles.button1}  textColor='#007787'>
                     Registrarse
                 </Button>
             </View>
@@ -60,6 +60,12 @@ const styles = StyleSheet.create({
     background: {
         flex: 1,
         justifyContent: 'center',
+    },
+    image:{
+        opacity: 0.7,
+        width: '100%',
+        height: '100%',
+        
     },
     container: {
         marginHorizontal: '5%',
@@ -99,11 +105,11 @@ const styles = StyleSheet.create({
     },
     button: {
         marginBottom: 12,   
-        backgroundColor: '#fc9294',
+        backgroundColor: '#007787',
     },
     button1: {
         marginBottom: 12,
-        borderColor: '#fc9294',
+        borderColor: '#007787',
     },
 });
 
