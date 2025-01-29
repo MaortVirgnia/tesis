@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -8,6 +8,13 @@ function Home (props) {
 
     return (
         <View style={styles.container}>
+            <View style={styles.bienvenida}>
+                <Icon name="user" style={styles.bienvenidaIcon} />
+                <Text style={styles.tituloBienvenida}>Bienvenido</Text>
+            </View>
+
+            <Text style={styles.question}> Que te gustaria hacer?</Text>
+
             <View style={styles.frecuencia}>
                 <View style={styles.frecuenciaInfo}>
                     <Text style={styles.title} >Frecuencia Cardiaca</Text>
@@ -67,6 +74,28 @@ const styles = StyleSheet.create({
     titulo: {
         fontSize: 30,
         marginBottom: 20,
+    },
+    bienvenida: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+        width: '90%',
+        gap: 10,
+    },
+    tituloBienvenida:{
+        fontSize: 30,
+        fontWeight: 'bold',
+        color: '#45aeb5',
+    },
+    bienvenidaIcon:{
+        fontSize: 50,
+        color: '#45aeb5',
+    },
+    question: {
+        fontSize: 30,
+        color: '#45aeb5',
+        fontWeight: 'bold',
     },
     frecuencia: {
         display: 'flex',

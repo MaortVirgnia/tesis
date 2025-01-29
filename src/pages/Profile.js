@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
-import { LineChart } from 'react-native-chart-kit';
-import { Dimensions } from 'react-native';
+
 
 const Profile = () => {
   return (
@@ -26,43 +25,20 @@ const Profile = () => {
           </View>
         </View>
         <View>
-        <Text style={styles.chartTitle}>Gráfico de Ejemplo</Text>
-        <LineChart
-                    data={{
-                        labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio"],
-                        datasets: [
-                            {
-                                data: [20, 45, 28, 80, 99, 43]
-                            }
-                        ]
-                    }}
-                    width={Dimensions.get('window').width - 16} // from react-native
-                    height={220}
-                    yAxisLabel="$"
-                    yAxisSuffix="k"
-                    yAxisInterval={1} // optional, defaults to 1
-                    chartConfig={{
-                        backgroundColor: "#fff",
-                        backgroundGradientFrom: "#fff",
-                        backgroundGradientTo: "#fff",
-                        decimalPlaces: 2, // optional, defaults to 2dp
-                        color: (opacity = 1) => `rgba(0, 119, 182, ${opacity})`,
-                        labelColor: (opacity = 1) => `rgba(0, 119, 182, ${opacity})`,
-                        style: {
-                            borderRadius: 16
-                        },
-                        propsForDots: {
-                            r: "6",
-                            strokeWidth: "2",
-                            stroke: "#023e8a"
-                        }
-                    }}
-                    bezier
-                    style={{
-                        marginVertical: 8,
-                        borderRadius: 16
-                    }}
-                />
+        <Text style={styles.recomendationsTittle}>Recomendaciones</Text>
+          <View style={styles.recomendationsContainer}>
+            <View style={styles.card}>
+              <Text style={styles.cardInfo}>Recomendacion 1</Text>
+            </View>
+
+            <View style={styles.card}>
+              <Text style={styles.cardInfo}>Recomendacion 1</Text>
+            </View>
+
+            <View style={styles.card}>
+              <Text style={styles.cardInfo}>Recomendacion 1</Text>
+            </View>
+          </View>
         </View>
       </View>
     </>
@@ -88,25 +64,56 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   title: {
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: "bold",
     textAlign: "center",
+    color: "#007787",
   },
   userInformation:{
     display: 'flex',
     flexDirection: "row",
     justifyContent: "space-between",
     gap: 10,
-    fontSize: 20,
+    fontSize: 16,
     marginBottom: 10,
   },
   span:{
     fontWeight: "bold",
+    color: "#007787",
+    fontSize: 16,
   },
-  chartTitle: {
-    fontSize: 20,
+  recomendationsTittle: {
+    fontSize: 30,
+    marginTop: 16,
     fontWeight: 'bold',
     textAlign: 'center',
+    color: '#007787',
+},
+recomendationsContainer:{
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 20,
+    width: '100%',
+    padding: 20,
+    borderRadius: 10,
+},
+card:{
+  marginBottom: 10,
+  borderRadius: 8,
+  elevation: 2,
+  backgroundColor: '#ccc',
+  width: '150%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  height: 100,
+},
+cardInfo:{
+  fontSize: 24,
+  fontWeight: 'bold',
+  color: '#007787',
 },
 });
 

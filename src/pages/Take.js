@@ -1,9 +1,18 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Animated } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Take = () => {
     const scale = useRef(new Animated.Value(1)).current;
-
+        const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
+    
+        useEffect(() => {
+            const interval = setInterval(() => {
+                setCurrentTime(new Date().toLocaleTimeString());
+            }, 1000);
+    
+            return () => clearInterval(interval);
+        }, []);
 
     const startPulsating = () => {
         scale.setValue(1);
@@ -28,14 +37,20 @@ const Take = () => {
     }, []);
 
     return (
-        <View style={styles.container}>          
+        <View style={styles.container}>    
+
+            <Text style={styles.measureText}>Haz clic aquí para medir</Text>
+
             <TouchableOpacity style={styles.heartButton}>
                 <Animated.View style={{ transform: [{ scale }] }}>
-                    <Text style={styles.heartText}>❤️</Text>
+                    <Icon name="heart" style={styles.heartText} />
                 </Animated.View>
             </TouchableOpacity>
 
-            <Text style={styles.measureText}>Haz clic aquí para medir</Text>
+            <View style={styles.timeContainer}>
+                <Icon name="clock-o" style={styles.timeIcon} />
+                <Text style={styles.time}>Son las: {currentTime}</Text>
+            </View>
 
             <View style={styles.recordContainer}>
                 <Text style={styles.recordTitle}>Últimos Registros</Text>
@@ -60,35 +75,45 @@ const Take = () => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
+        display: 'flex',
         alignItems: 'center',
         backgroundColor: '#fff',
         padding: 20,
     },
+    timeContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 10,
+    },
+    timeIcon: {
+        fontSize: 24,
+        color: '#007787',
+    },
+    time: {
+        fontSize: 24,
+        color: '#007787',
+        fontWeight: 'bold',
+    },
     heartButton: {
-        backgroundColor: '#ffcccc',
         borderRadius: 50,
         padding: 30,
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: 20,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.3,
-        shadowRadius: 4,
-        elevation: 5, 
+        marginTop: 20,
+ 
     },
     heartText: {
-        fontSize: 120,
-        color: '#ff0000',
+        fontSize: 250,
+        color: '#ff758f',
         fontWeight: 'bold',
         alignSelf: 'center',
     },
     measureText: {
-        fontSize: 18,
-        color: '#007BFF',
-        marginBottom: 40,
+        fontSize: 24,
+        color: '#007787',
+        fontWeight: 'bold',
     },
     recordContainer: {
         width: '100%',
@@ -100,9 +125,11 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 10,
+        color: '#007787',
+        marginTop: 40,
     },
     recordItem: {
-        backgroundColor: '#f9f9f9',
+        backgroundColor: '#ccc',
         borderRadius: 10,
         padding: 15,
         marginVertical: 5,
@@ -126,12 +153,12 @@ const styles = StyleSheet.create({
     recordValue: {
         fontSize: 18,
         fontWeight: 'bold',
-        color: '#007BFF',
+        color: '#007787',
         marginRight: 5,
     },
     recordDate: {
         fontSize: 16,
-        color: '#888',
+        color: '#333',
     },
 });
 

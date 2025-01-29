@@ -45,7 +45,7 @@ const Settings = () => {
                     onValueChange={setNightModeEnabled}
                 />
             </View>
-            <Button title="Enviar" onPress={submitSettings} />
+            <Button color="#45aeb5" title="Enviar" onPress={submitSettings} />
         </View>
     );
 };

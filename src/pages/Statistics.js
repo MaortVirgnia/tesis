@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Dimensions, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, ScrollView, Button } from 'react-native';
 import { BarChart } from 'react-native-chart-kit';
 import { Switch, Card, List } from 'react-native-paper';
 
@@ -61,14 +61,19 @@ const Statistics = () => {
                 }}
                 style={styles.chart}
             />
-
             <View style={styles.switchContainer}>
-                <Text style={styles.switchLabel}>Pulsaciones</Text>
-                <Switch
-                    value={!isHeartRate} // Invertir el valor para que el switch funcione como un toggle
-                    onValueChange={() => setIsHeartRate(!isHeartRate)}
-                />
-                <Text style={styles.switchLabel}>Oxigenación</Text>
+                <Button
+                title="Pulsaciones"
+                onPress={() => setIsHeartRate(true)}
+                color={isHeartRate ? '#45aeb5' : "#8d8d8f"}
+                
+            />
+            <Button
+                title="Oxigenación"
+                onPress={() => setIsHeartRate(false)}
+                color={!isHeartRate ? '#45aeb5' :  "#8d8d8f"}
+                
+            />
             </View>
 
             <View style={styles.historyContainer}>
@@ -109,6 +114,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 10,
+        color: "#007787"
     },
     chart: {
         borderRadius: 16,
@@ -117,7 +123,8 @@ const styles = StyleSheet.create({
     switchContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
+        gap: 20,
         width: '100%',
         marginVertical: 20,
     },
@@ -133,11 +140,13 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 10,
+        color: "#007787"
     },
     card: {
         marginBottom: 10,
         borderRadius: 8,
         elevation: 2,
+        backgroundColor: '#ccc',
     },
     recordDate: {
         fontSize: 16,
@@ -145,6 +154,15 @@ const styles = StyleSheet.create({
     },
     recordValue: {
         fontSize: 16,
+        color: "#007787"
+    },
+    button:{
+        backgroundColor: '#007787',
+    },
+    buttonOff:{
+        backgroundColor: '#ccc',
+        borderColor: '#007787',
+        color: '#007787',
     },
 });
 

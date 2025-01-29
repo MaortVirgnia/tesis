@@ -29,7 +29,7 @@ const BottomTab = () => {
                 }} 
             />
             <Tab.Screen 
-                name="Estadisticas" 
+                name="Estadísticas" 
                 component={Statistics} 
                 options={{
                     tabBarIcon: ({ color, size }) => (
@@ -38,7 +38,7 @@ const BottomTab = () => {
                 }} 
             />
             <Tab.Screen 
-                name="Medir" 
+                name="Tomar"
                 component={Take} 
                 options={{
                     tabBarIcon: ({ color, size }) => (

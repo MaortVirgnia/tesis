@@ -60,7 +60,7 @@ const Register = ({ navigation }) => {
     };
 
     return (
-        <ImageBackground style={styles.background} source={require('../img/1.jpg') }>
+        <ImageBackground style={styles.background} imageStyle={styles.image} source={require('../img/fondo.jpg') }>
             <View style={styles.container}>
                 <View style={styles.header}/>
                 <Text style={styles.title}>Registro</Text>
@@ -117,6 +117,7 @@ const Register = ({ navigation }) => {
                     visible={modalVisible}
                     onRequestClose={() => setModalVisible(false)}
                 >
+                <View style={styles.modalBackground}>
                     <View style={styles.modalView}>
                         <Text style={styles.modalText}>Selecciona tu sexo:</Text>
                         <TouchableRipple onPress={() => { setGender('masculino'); setModalVisible(false); }}>
@@ -126,6 +127,7 @@ const Register = ({ navigation }) => {
                             <Text style={styles.modalOption}>Femenino</Text>
                         </TouchableRipple>
                     </View>
+                </View>
                 </Modal>
                 <TouchableRipple onPress={() => setConditionModalVisible(true)} style={styles.dropdown}>
                     <Text style={styles.dropdownText}>Condición cardíaca: {hasHeartCondition ? selectedCondition : 'Ninguna'}</Text>
@@ -136,6 +138,7 @@ const Register = ({ navigation }) => {
                     visible={conditionModalVisible}
                     onRequestClose={() => setConditionModalVisible(false)}
                 >
+                <View style={styles.modalBackground}> 
                     <View style={styles.modalView}>
                         <Text style={styles.modalText}>Selecciona tu condición cardíaca:</Text>
                         {heartConditions.map((condition) => (
@@ -147,7 +150,9 @@ const Register = ({ navigation }) => {
                             <Text style={styles.modalOption}>Ninguna</Text>
                         </TouchableRipple>
                     </View>
+                </View>
                 </Modal>
+                
                 <Button mode="contained" onPress={handleRegister} style={styles.button}>
                     Registrarse
                 </Button>
@@ -167,6 +172,12 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgb(255, 255, 255)', 
         borderRadius: 30,
         alignContent: 'center',
+    },
+    image:{
+        opacity: 0.7,
+        width: '100%',
+        height: '100%',
+        
     },
     header: {
         marginTop: 30,
@@ -198,12 +209,20 @@ const styles = StyleSheet.create({
     dropdownText: {
         fontSize: 16,
     },
+    modalBackground: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
     modalView: {
         margin: 20,
         backgroundColor: 'white',
         borderRadius: 20,
         padding: 35,
+        display: 'flex',
         alignItems: 'center',
+        justifyContent: 'center',
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
@@ -224,7 +243,7 @@ const styles = StyleSheet.create({
     button: {
         marginTop: 20,
         borderRadius: 20,
-        backgroundColor: '#fc9294',
+        backgroundColor: '#007787',
     },
 });
 
