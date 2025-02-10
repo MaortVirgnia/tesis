@@ -1,10 +1,11 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
 
 
 const Profile = () => {
   return (
     <>
+    <ScrollView contentContainerStyle={styles.ScrollView}>
       <View style={styles.container}>
         <View style={styles.userInfo}>
           <View>
@@ -41,11 +42,15 @@ const Profile = () => {
           </View>
         </View>
       </View>
+    </ScrollView>
     </>
   );
 };
 
 const styles = StyleSheet.create({
+  ScrollView: {
+    flexGrow: 1,
+  },
   container: {
     alignItems: "center",
     flex: 1,

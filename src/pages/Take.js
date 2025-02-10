@@ -1,18 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Animated } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Animated, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Take = () => {
     const scale = useRef(new Animated.Value(1)).current;
-        const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
-    
-        useEffect(() => {
-            const interval = setInterval(() => {
-                setCurrentTime(new Date().toLocaleTimeString());
-            }, 1000);
-    
-            return () => clearInterval(interval);
-        }, []);
+    const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentTime(new Date().toLocaleTimeString());
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
 
     const startPulsating = () => {
         scale.setValue(1);
@@ -37,54 +37,55 @@ const Take = () => {
     }, []);
 
     return (
-        <View style={styles.container}>    
-
-            <Text style={styles.measureText}>Haz clic aquí para medir</Text>
-
-            <TouchableOpacity style={styles.heartButton}>
-                <Animated.View style={{ transform: [{ scale }] }}>
-                    <Icon name="heart" style={styles.heartText} />
-                </Animated.View>
-            </TouchableOpacity>
-
-            <View style={styles.timeContainer}>
-                <Icon name="clock-o" style={styles.timeIcon} />
-                <Text style={styles.time}>Son las: {currentTime}</Text>
-            </View>
-
-            <View style={styles.recordContainer}>
-                <Text style={styles.recordTitle}>Últimos Registros</Text>
-                <View style={styles.recordItem}>
-                    <Text style={styles.recordLabel}>Frecuencia Cardíaca:</Text>
-                    <View style={styles.recordValueContainer}>
-                        <Text style={styles.recordValue}>90 bpm</Text>
-                        <Text style={styles.recordDate}>(27/10/2024)</Text>
-                    </View>
+        <ScrollView contentContainerStyle={styles.ScrollView}>
+            <View style={styles.container}>
+                <Text style={styles.measureText}>Haz clic aquí para medir</Text>
+                <TouchableOpacity style={styles.heartButton}>
+                    <Animated.View style={{ transform: [{ scale }] }}>
+                        <Icon name="heart" style={styles.heartText} />
+                    </Animated.View>
+                </TouchableOpacity>
+                <View style={styles.timeContainer}>
+                    <Icon name="clock-o" style={styles.timeIcon} />
+                    <Text style={styles.time}>Son las: {currentTime}</Text>
                 </View>
-                <View style={styles.recordItem}>
-                    <Text style={styles.recordLabel}>Oxigenación en Sangre: </Text>
-                    <View style={styles.recordValueContainer}>
-                        <Text style={styles.recordValue}> 98%</Text>
-                        <Text style={styles.recordDate}>(27/10/2024)</Text>
+                <View style={styles.recordContainer}>
+                    <Text style={styles.recordTitle}>Últimos Registros</Text>
+                    <View style={styles.recordItem}>
+                        <Text style={styles.recordLabel}>Frecuencia Cardíaca:</Text>
+                        <View style={styles.recordValueContainer}>
+                            <Text style={styles.recordValue}>90 bpm</Text>
+                            <Text style={styles.recordDate}>(27/10/2024)</Text>
+                        </View>
+                    </View>
+                    <View style={styles.recordItem}>
+                        <Text style={styles.recordLabel}>Oxigenación en Sangre:</Text>
+                        <View style={styles.recordValueContainer}>
+                            <Text style={styles.recordValue}>98%</Text>
+                            <Text style={styles.recordDate}>(27/10/2024)</Text>
+                        </View>
                     </View>
                 </View>
             </View>
-        </View>
+        </ScrollView>
     );
 };
 
 const styles = StyleSheet.create({
+    ScrollView: {
+        flexGrow: 1,
+    },
     container: {
-        display: 'flex',
+        flex: 1,
+        justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#fff',
         padding: 20,
     },
     timeContainer: {
-        display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 10,
+        marginTop: 20,
     },
     timeIcon: {
         fontSize: 24,
@@ -100,12 +101,10 @@ const styles = StyleSheet.create({
         padding: 30,
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: 20,
-        marginTop: 20,
- 
+        marginVertical: 20,
     },
     heartText: {
-        fontSize: 250,
+        fontSize: 100, // Tamaño estándar para el corazón
         color: '#ff758f',
         fontWeight: 'bold',
         alignSelf: 'center',
@@ -126,7 +125,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 10,
         color: '#007787',
-        marginTop: 40,
     },
     recordItem: {
         backgroundColor: '#ccc',
@@ -137,7 +135,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.2,
         shadowRadius: 2,
-        elevation: 3, 
+        elevation: 3,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',

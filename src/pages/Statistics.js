@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Dimensions, ScrollView, Button } from 'react-native';
 import { BarChart } from 'react-native-chart-kit';
-import { Switch, Card, List } from 'react-native-paper';
+import { Card } from 'react-native-paper';
 
 const Statistics = () => {
     const [isHeartRate, setIsHeartRate] = useState(true); // true para pulsaciones, false para oxigenación
